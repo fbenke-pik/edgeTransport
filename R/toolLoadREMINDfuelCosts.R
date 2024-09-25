@@ -25,8 +25,8 @@ toolLoadREMINDfuelCosts <- function(gdxPath, hybridElecShare, helpers){
 
    fuelCosts <- GDPuc::convertGDP(
      gdp = fuelCosts,
-     unit_in = "constant 2005 Int$PPP",
-     unit_out = "constant 2017 Int$PPP",
+     unit_in = "constant 2005 US$MER",
+     unit_out = "constant 2017 US$MER",
      replace_NAs = "with_USA"
    )
 
