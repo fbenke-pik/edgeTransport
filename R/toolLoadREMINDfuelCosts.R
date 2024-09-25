@@ -22,6 +22,14 @@ toolLoadREMINDfuelCosts <- function(gdxPath, hybridElecShare, helpers){
 
    # load prices from REMIND gdx
    fuelCosts <- readGDX(gdxPath, "pm_FEPrice", format = "first_found", restore_zeros = FALSE)[,, "trans.ES", pmatch = TRUE]
+
+   fuelCosts <- GDPuc::convertGDP(
+     gdp = fuelCosts,
+     unit_in = "constant 2005 Int$PPP",
+     unit_out = mrdrivers::toolGetUnitDollar(),
+     replace_NAs = "with_USA"
+   )
+
    ## smooth prices from REMIND gdx (over years) and convert to data.table
    fuelCosts <- fuelCosts %>% lowpass() %>% magpie2dt()
    setnames(fuelCosts, c("all_regi", "ttot"), c("region", "period"))
